@@ -7,7 +7,8 @@ const secrets = require('../Config/secrets')
 const genToken = (user) =>{
     const payload = {
         userid: user.id,
-        username: user.username
+        username: user.username,
+        department: user.department
     }
     const options = {
         expiresIn: '1hr'
@@ -26,6 +27,7 @@ router.post('/register', (req, res) =>{
 
     })
     .then(newUser =>{
+        console.log(newUser)
         const token = genToken(newUser)
         res.status(201).json({created_user: newUser,token:token})
     })

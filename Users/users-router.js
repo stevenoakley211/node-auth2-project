@@ -4,11 +4,14 @@ const Users = require("./users-model.js");
 const restricted = require("../Middleware/restricted-middleware.js");
 
 router.get("/", restricted,  (req, res) => {
-  Users.find()
+  Users.findBy({department: req.decodedJwt.department})
     .then(users => {
+      
       res.status(200).json(users);
     })
     .catch(err => res.send(err));
 });
+
+
 
 module.exports = router;
